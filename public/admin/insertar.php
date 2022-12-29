@@ -3,37 +3,37 @@ session_start();
 
 require "../../src/auxiliar.php";
 
-// Sanitize user input
-$code = hh($_POST['codigo'], ENT_QUOTES, 'UTF-8');
-$description = hh($_POST['descripcion'], ENT_QUOTES, 'UTF-8');
-$price = filter_input(INPUT_POST, 'precio', FILTER_SANITIZE_NUMBER_FLOAT);
+// Sanear la entrada del usuario.
+$codigo = hh($_POST['codigo'], ENT_QUOTES, 'UTF-8');
+$descripcion = hh($_POST['descripcion'], ENT_QUOTES, 'UTF-8');
+$precio = filter_input(INPUT_POST, 'precio', FILTER_SANITIZE_NUMBER_FLOAT);
 $stock = filter_input(INPUT_POST, 'stock', FILTER_SANITIZE_NUMBER_INT);
 
-// Validate user input
-if (!$code || !$description || !$price || !$stock) {
-    $_SESSION['error'] = 'Invalid input. Please try again.';
+// Validar la entrada del usuario.
+if (!$codigo || !$descripcion || !$precio || !$stock) {
+    $_SESSION['error'] = 'Entrada no válida. Por favor, inténtelo de nuevo.';
     return volver_admin();
 }
 
 try {
-    // Connect to database
+    // Conectar a la base de datos.
     $pdo = conectar();
 
-    // Prepare and execute INSERT statement
-    $stmt = $pdo->prepare("INSERT INTO articulos (codigo, descripcion, precio, stock) VALUES (:code, :description, :price, :stock)");
+    // Preparar y ejecutar la sentencia INSERT.
+    $stmt = $pdo->prepare("INSERT INTO articulos (codigo, descripcion, precio, stock) VALUES (:codigo, :descripcion, :precio, :stock)");
     $stmt->execute([
-        ':code' => $code,
-        ':description' => $description,
-        ':price' => $price,
+        ':codigo' => $codigo,
+        ':descripcion' => $descripcion,
+        ':precio' => $precio,
         ':stock'  => $stock
     ]);
 
-    // Set success message
-    $_SESSION['success'] = 'The article was added successfully.';
+    // Establecer mensaje de éxito.
+    $_SESSION['exito'] = 'El artículo se ha modificado correctamente.';
 
 } catch (PDOException $e) {
-    // Set error message
-    $_SESSION['error'] = 'An error occurred while adding the article. Please try again.';
+    // Mensaje de error.
+    $_SESSION['error'] = 'Se ha producido un error al añadir el artículo. Por favor, inténtelo de nuevo.';
 }
 
 return volver_admin();
