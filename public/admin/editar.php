@@ -12,16 +12,18 @@ $precio = obtener_post('stock');
 $pdo = conectar();
 $set = [];
 $execute = [];
+$where = [];
 
-$sent = $pdo->prepare("SELECT * FROM articulos WHERE id = :id");
+$sent = $pdo->prepare("SELECT codigo, descripcion, precio, stock FROM articulos WHERE id = :id");
 $sent->execute([':id' => $id]);
-$origin = $sent->fetch();
+$origin = $sent->fetch(PDO::FETCH_ASSOC);
+var_dump($origin);
 print_r($origin);
 
 if (!isset($id)) {
     return volver_admin();
 } else {
-    $set[] = 'id = :id';
+    $where[] = 'id = :id';
     $execute[':id'] = $id;
 }
 
@@ -59,10 +61,11 @@ if (isset($stock) && $stock != '') {
 
 
 $set = !empty($set) ? 'SET ' . implode(' , ', $set) : '';
+$where = !empty($where) ? 'WHERE ' . implode('', $where) : '';
 
 $sent = $pdo->prepare("UPDATE articulos
                             $set
-                            WHERE id = :id");
+                            $where");
 
 $sent->execute($execute);
 
