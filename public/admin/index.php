@@ -13,9 +13,16 @@
             const oculto = document.getElementById('oculto');
             oculto.setAttribute('value', id);
         }
+
         function cambiarModificar(el, id) {
             el.preventDefault();
             const ocultoModificar = document.getElementById('ocultoModificar');
+            ocultoModificar.setAttribute('value', id);
+        }
+
+        function cambiarInsertar(el, id) {
+            el.preventDefault();
+            const ocultoModificar = document.getElementById('ocultoInsertar');
             ocultoModificar.setAttribute('value', id);
         }
     </script>
@@ -41,7 +48,7 @@
     <div class="container mx-auto">
         <?php require '../../src/_menu.php' ?>
         <?php require '../../src/_alerts.php' ?>
-        <?php require_once '../../src/_models.php'?>
+        <?php require_once '../../src/_models.php' ?>
         <div class="overflow-x-auto relative mt-4">
             <table class="mx-auto text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -71,7 +78,17 @@
                             </td>
                         </tr>
                     <?php endforeach ?>
+                    <tr><td><br></td></tr>
+                    <tr>
+                        <td colspan="8" class="text-center">
+                            <form action="/admin/insertar.php" method="POST" class="inline">
+                                <input type="hidden" name="id" value="<?= $fila_id ?>">
+                                <button type="submit" onclick="cambiarInsertar(event, <?= $fila_id ?>)" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900" data-modal-toggle="insertar">Insertar</button>
+                            </form>
+                        </td>
+                    </tr>
                 </tbody>
+
             </table>
         </div>
         <a href="usuarios.php" target="_blank">
