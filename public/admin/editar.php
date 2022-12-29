@@ -3,74 +3,41 @@ session_start();
 
 require '../../src/auxiliar.php';
 
+// Recive los datos mediante POST
 $id = obtener_post('id');
 $codigo = obtener_post('codigo');
 $descripcion = obtener_post('descripcion');
 $precio = obtener_post('precio');
-$precio = obtener_post('stock');
+$stock = obtener_post('stock');
 
+// Conecta con la base de datos
 $pdo = conectar();
-$set = [];
-$execute = [];
-$where = [];
 
-$sent = $pdo->prepare("SELECT codigo, descripcion, precio, stock FROM articulos WHERE id = :id");
+// Comprueba si existe el id
+if (!isset($id)) {
+    // Si no existe, regresa a la pagina admin
+    return volver_admin();
+}
+
+// Recoge los valores actuales del registro
+$sent = $pdo->prepare("SELECT codigo, descripcion, precio, stock
+                        FROM articulos
+                        WHERE id = :id");
 $sent->execute([':id' => $id]);
 $origin = $sent->fetch(PDO::FETCH_ASSOC);
-var_dump($origin);
-print_r($origin);
 
-if (!isset($id)) {
-    return volver_admin();
-} else {
-    $where[] = 'id = :id';
-    $execute[':id'] = $id;
-}
-
-if (isset($codigo) && $codigo != '') {
-    $set[] = 'codigo = :codigo';
-    $execute[':codigo'] = $codigo;
-} else {
-    $set[] = 'codigo = :codigo';
-    $execute[':codigo'] = $origin['codigo'];
-}
-
-if (isset($descripcion) && $descripcion != '' && mb_strlen($descripcion) < 255) {
-    $set[] = 'descripcion = :descripcion';
-    $execute[':descripcion'] = $descripcion;
-} else {
-    $set[] = 'descripcion = :descripcion';
-    $execute[':descripcion'] = $origin['descripcion'];
-}
-
-if (isset($precio) && $precio != '' && mb_strlen($precio) < 7) {
-    $set[] = 'precio = :precio';
-    $execute[':precio'] = $precio;
-} else {
-    $set[] = 'precio = :precio';
-    $execute[':precio'] = $origin['precio'];
-}
-
-if (isset($stock) && $stock != '') {
-    $set[] = 'stock = :stock';
-    $execute[':stock'] = $stock;
-} else {
-    $set[] = 'stock = :stock';
-    $execute[':stock'] = $origin['stock'];
-}
-
-
-$set = !empty($set) ? 'SET ' . implode(' , ', $set) : '';
-$where = !empty($where) ? 'WHERE ' . implode('', $where) : '';
-
+//Actualizar el registro con los datos POST o los valores actuales
 $sent = $pdo->prepare("UPDATE articulos
-                            $set
-                            $where");
+                        SET codigo = :codigo, descripcion = :descripcion, precio = :precio, stock = :stock
+                        WHERE id = :id");
+$sent->execute([
+    ':id' => $id,
+    ':codigo' => $codigo ?: $origin['codigo'],
+    ':descripcion' => $descripcion ?: $origin['descripcion'],
+    ':precio' => $precio ?: $origin['precio'],
+    ':stock' => $stock ?: $origin['stock']
+]);
 
-$sent->execute($execute);
-
-
-
+//Establecer un mensaje de éxito y vuelve a la página de administración
 $_SESSION['exito'] = 'El artículo se ha modificado correctamente.';
-
 return volver_admin();
