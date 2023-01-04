@@ -9,6 +9,7 @@ $codigo = obtener_post('codigo');
 $descripcion = obtener_post('descripcion');
 $precio = obtener_post('precio');
 $stock = obtener_post('stock');
+$categoria_id = obtener_post('categoria_id');
 
 // Conecta con la base de datos
 $pdo = conectar();
@@ -20,7 +21,7 @@ if (!isset($id)) {
 }
 
 // Recoge los valores actuales del registro
-$sent = $pdo->prepare("SELECT codigo, descripcion, precio, stock
+$sent = $pdo->prepare("SELECT codigo, descripcion, precio, stock, categoria_id
                         FROM articulos
                         WHERE id = :id");
 $sent->execute([':id' => $id]);
@@ -28,14 +29,19 @@ $origin = $sent->fetch(PDO::FETCH_ASSOC);
 
 //Actualizar el registro con los datos POST o los valores actuales
 $sent = $pdo->prepare("UPDATE articulos
-                        SET codigo = :codigo, descripcion = :descripcion, precio = :precio, stock = :stock
+                        SET codigo = :codigo,
+                            descripcion = :descripcion,
+                            precio = :precio,
+                            stock = :stock,
+                            categoria_id = :categoria_id
                         WHERE id = :id");
 $sent->execute([
     ':id' => $id,
     ':codigo' => $codigo ?: $origin['codigo'],
     ':descripcion' => $descripcion ?: $origin['descripcion'],
     ':precio' => $precio ?: $origin['precio'],
-    ':stock' => $stock ?: $origin['stock']
+    ':stock' => $stock ?: $origin['stock'],
+    ':categoria_id' => $categoria_id ?: $origin['categoria_id']
 ]);
 
 //Establecer un mensaje de éxito y vuelve a la página de administración

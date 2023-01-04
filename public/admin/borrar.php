@@ -3,17 +3,9 @@ session_start();
 
 require '../../src/auxiliar.php';
 
-$id = obtener_post('id');
+$id = obtener_post('id', FILTER_VALIDATE_INT);
 
-// if (!comprobar_csrf()) {
-//     return volver_admin();
-// }
 
-/* if (!isset($id)) {
-    return volver_admin();
-} */
-
-// TODO: Validar id //DONE:
 if(!ctype_digit($id) || !isset($id)){
     return volver_admin();
 } else {

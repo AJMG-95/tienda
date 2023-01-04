@@ -15,7 +15,6 @@ DROP TABLE IF EXISTS categorias CASCADE;
 
 CREATE TABLE categorias (
     id bigserial PRIMARY KEY,
-    codigo varchar(13) NOT NULL UNIQUE,
     categoria varchar(255) NOT NULL
 );
 
@@ -56,10 +55,10 @@ INSERT INTO articulos (codigo, descripcion, precio, stock, categoria_id)
            ('83745228673',  'Tigretón',              50.10,  8,  2),
            ('51786198495',  'Disco duro SSD 500 GB', 150.30, 1,  1);
 
-INSERT INTO categorias (codigo, categoria)
-    VALUES ('1234',     'tecnologia'),
-            ('4321',    'alimenacion'),
-            ('2341',    'ropa');
+INSERT INTO categorias (categoria)
+    VALUES ('tecnologia'),
+            ('alimenacion'),
+            ('ropa');
 
 INSERT INTO usuarios (usuario, password, validado)
     VALUES ('admin',    crypt('admin', gen_salt('bf', 10)), true),

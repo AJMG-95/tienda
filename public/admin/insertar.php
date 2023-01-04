@@ -8,9 +8,10 @@ $codigo = hh($_POST['codigo'], ENT_QUOTES, 'UTF-8');
 $descripcion = hh($_POST['descripcion'], ENT_QUOTES, 'UTF-8');
 $precio = filter_input(INPUT_POST, 'precio', FILTER_SANITIZE_NUMBER_FLOAT);
 $stock = filter_input(INPUT_POST, 'stock', FILTER_SANITIZE_NUMBER_INT);
+$categoria_id = filter_input(INPUT_POST, 'categoria_id', FILTER_SANITIZE_NUMBER_INT);
 
 // Validar la entrada del usuario.
-if (!$codigo || !$descripcion || !$precio || !$stock) {
+if (!$codigo || !$descripcion || !$precio || !$stock || !$categoria_id) {
     $_SESSION['error'] = 'Entrada no válida. Por favor, inténtelo de nuevo.';
     return volver_admin();
 }
@@ -20,12 +21,13 @@ try {
     $pdo = conectar();
 
     // Preparar y ejecutar la sentencia INSERT.
-    $stmt = $pdo->prepare("INSERT INTO articulos (codigo, descripcion, precio, stock) VALUES (:codigo, :descripcion, :precio, :stock)");
+    $stmt = $pdo->prepare("INSERT INTO articulos (codigo, descripcion, precio, stock, categoria_id) VALUES (:codigo, :descripcion, :precio, :stock, :categoria_id)");
     $stmt->execute([
         ':codigo' => $codigo,
         ':descripcion' => $descripcion,
         ':precio' => $precio,
-        ':stock'  => $stock
+        ':stock'  => $stock,
+        ':categoria_id' => $categoria_id
     ]);
 
     // Establecer mensaje de éxito.
