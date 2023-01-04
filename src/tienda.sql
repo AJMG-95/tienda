@@ -1,12 +1,22 @@
-DROP TABLE IF EXISTS articulos CASCADE;
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+DROP TABLE IF EXISTS articulos CASCADE;
 
 CREATE TABLE articulos (
     id          bigserial     PRIMARY KEY,
     codigo      varchar(13)   NOT NULL UNIQUE,
     descripcion varchar(255)  NOT NULL,
     precio      numeric(7, 2) NOT NULL,
-    stock       int           NOT NULL
+    stock       int           NOT NULL,
+    categoria_id bigint NOT NULL REFERENCES categorias(id)
+);
+
+DROP TABLE IF EXISTS categorias CASCADE;
+
+CREATE TABLE categorias (
+    id bigserial PRIMARY KEY,
+    codigo varchar(13) NOT NULL UNIQUE,
+    categoria varchar(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS usuarios CASCADE;
@@ -37,15 +47,20 @@ CREATE TABLE articulos_facturas (
 
 -- Carga inicial de datos de prueba:
 
-INSERT INTO articulos (codigo, descripcion, precio, stock)
-    VALUES ('18273892389', 'Yogur piña', 200.50, 4),
-           ('83745828273', 'Tigretón', 50.10, 2),
-           ('51736128495', 'Disco duro SSD 500 GB', 150.30, 0),
-           ('83746828273', 'Tigretón', 50.10, 3),
-           ('51786128435', 'Disco duro SSD 500 GB', 150.30, 5),
-           ('83745228673', 'Tigretón', 50.10, 8),
-           ('51786198495', 'Disco duro SSD 500 GB', 150.30, 1);
+INSERT INTO articulos (codigo, descripcion, precio, stock, categoria_id)
+    VALUES ('18273892389',  'Yogur piña',            200.50, 4,  2),
+           ('83745828273',  'Tigretón',              50.10,  2,  2),
+           ('51736128495',  'Disco duro SSD 500 GB', 150.30, 0,  1),
+           ('83746828273',  'Tigretón',              50.10,  3,  2),
+           ('51786128435',  'Disco duro SSD 500 GB', 150.30, 5,  1),
+           ('83745228673',  'Tigretón',              50.10,  8,  2),
+           ('51786198495',  'Disco duro SSD 500 GB', 150.30, 1,  1);
+
+INSERT INTO categorias (codigo, categoria)
+    VALUES ('1234',     'tecnologia'),
+            ('4321',    'alimenacion'),
+            ('2341',    'ropa');
 
 INSERT INTO usuarios (usuario, password, validado)
-    VALUES ('admin', crypt('admin', gen_salt('bf', 10)), true),
-           ('pepe', crypt('pepe', gen_salt('bf', 10)), false);
+    VALUES ('admin',    crypt('admin', gen_salt('bf', 10)), true),
+           ('pepe',     crypt('pepe', gen_salt('bf', 10)), false);
