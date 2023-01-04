@@ -66,6 +66,7 @@
                     <th scope="col" class="py-3 px-6">Stock</th>
                     <th scope="col" class="py-3 px-6">Categoria</th>
                     <th scope="col" class="py-3 px-6">Categoria id</th>
+                    <th scope="col" class="py-3 px-6">Visible</th>
                     <th scope="col" class="py-3 px-6 text-center">Acciones</th>
                 </thead>
                 <tbody>
@@ -77,6 +78,7 @@
                             <td class="py-4 px-6"><?= hh($fila['stock']) ?></td>
                             <td class="py-4 px-6"><?= hh($fila['categoria']) ?></td>
                             <td class="py-4 px-6"><?= hh($fila['categoria_id']) ?></td>
+                            <td class="py-4 px-6"><?= hh($fila['visible']) ? 'Si' : 'No' ?></td>
                             <td class="px-6 text-center">
                                 <?php $fila_id = hh($fila['id']) ?>
                                 <form action="/admin/editar.php" method="POST" class="inline">
