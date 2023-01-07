@@ -27,11 +27,10 @@
         $sent->execute([':ids' => implode(', ', $carrito->getIds())]);
         foreach ($sent->fetchAll(PDO::FETCH_ASSOC) as $fila) {
             if ($fila['stock'] < $carrito->getLinea($fila['id'])->getCantidad()) {
-                $_SESSION['error'] = 'No hay existencias suficientes para crear la factura.';
+                $_SESSION['error'] = 'No hay existencias suficientes pa ra crear la factura.';
                 return volver();
             }
         }
-
         // Crear factura
         $usuario = \App\Tablas\Usuario::logueado();
         $usuario_id = $usuario->id;

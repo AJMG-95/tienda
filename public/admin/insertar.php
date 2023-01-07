@@ -3,39 +3,38 @@ session_start();
 
 require "../../src/auxiliar.php";
 
-// Sanear la entrada del usuario.
-$codigo = hh($_POST['codigo'], ENT_QUOTES, 'UTF-8');
-$descripcion = hh($_POST['descripcion'], ENT_QUOTES, 'UTF-8');
-$precio = filter_input(INPUT_POST, 'precio', FILTER_SANITIZE_NUMBER_FLOAT);
-$stock = filter_input(INPUT_POST, 'stock', FILTER_SANITIZE_NUMBER_INT);
-$categoria_id = filter_input(INPUT_POST, 'categoria_id', FILTER_SANITIZE_NUMBER_INT);
+$id = obtener_post('id');
+$codigo = $_POST['codigo'];
+$descripcion = $_POST['descripcion'];
+$precio = $_POST['precio'];
+$precio_rebajado = $_POST['precio_rebajado'];
+$stock = $_POST['stock'];
+$categoria_id = $_POST['categoria_id'];
+$visible = $_POST['visible'];
 
-// Validar la entrada del usuario.
-if (!$codigo || !$descripcion || !$precio || !$stock || !$categoria_id) {
-    $_SESSION['error'] = 'Entrada no válida. Por favor, inténtelo de nuevo.';
-    return volver_admin();
-}
+var_dump($precio_rebajado);
+// Conecta con la base de datos
+$pdo = conectar();
 
-try {
-    // Conectar a la base de datos.
-    $pdo = conectar();
+// Recoge los valores actuales del registro
+$sent = $pdo->prepare("SELECT codigo, descripcion, precio, precio_rebajado, stock, visible, categoria_id, visible
+                        FROM articulos
+                        WHERE id = :id");
+$sent->execute([':id' => $id]);
+$origin = $sent->fetch(PDO::FETCH_ASSOC);
 
-    // Preparar y ejecutar la sentencia INSERT.
-    $stmt = $pdo->prepare("INSERT INTO articulos (codigo, descripcion, precio, stock, categoria_id) VALUES (:codigo, :descripcion, :precio, :stock, :categoria_id)");
-    $stmt->execute([
-        ':codigo' => $codigo,
-        ':descripcion' => $descripcion,
-        ':precio' => $precio,
-        ':stock'  => $stock,
-        ':categoria_id' => $categoria_id
-    ]);
+$sent = $pdo->prepare("INSERT INTO articulos (codigo, descripcion, precio, precio_rebajado, stock, categoria_id, visible) VALUES (:codigo, :descripcion, :precio, :precio_rebajado, :stock, :categoria_id, :visible)");
+$sent->execute([
+    ':codigo' => $codigo,
+    ':descripcion' => $descripcion,
+    ':precio' => $precio,
+    ':precio_rebajado' => $precio_rebajado ?: $origin['precio_rebajado'],
+    ':stock'  => $stock,
+    ':categoria_id'  => $categoria_id,
+    ':visible'  => $visible
+]);
 
-    // Establecer mensaje de éxito.
-    $_SESSION['exito'] = 'El artículo se ha modificado correctamente.';
+$_SESSION['exito'] = 'El artículo se ha añadido correctamente.';
 
-} catch (PDOException $e) {
-    // Mensaje de error.
-    $_SESSION['error'] = 'Se ha producido un error al añadir el artículo. Por favor, inténtelo de nuevo.';
-}
 
 return volver_admin();

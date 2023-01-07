@@ -40,7 +40,7 @@
                         <label for="codigo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Código
                         </label>
-                        <input type="text" name="codigo" id="codigo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <input type="text" name="codigo" id="codigo"  placeholder="111111111" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                     </div>
                     <div class="mb-6">
                         <label for="descripcion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -55,10 +55,28 @@
                         <input type="number"  step="0.01" name="precio" id="precio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                     </div>
                     <div class="mb-6">
+                        <label for="precio_rebajado" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Precio rebajado
+                        </label>
+                        <input type="text" name="precio_rebajado" id="precio_rebajado" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+                    <div class="mb-6">
                         <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Stock
                         </label>
                         <input type="number" name="stock" id="stock" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="categoria_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Categoria_id
+                        </label>
+                        <input type="number" name="categoria_id" id="categoria_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="visible" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Visibilidad
+                        </label>
+                        <input type="text" name="visible" id="visible"  placeholder="yes | no" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " required>
                     </div>
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Submit
@@ -97,16 +115,20 @@
                         <input type="text" name="precio" id="precio" placeholder="99.99" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                     </div>
                     <div>
+                        <label for="precio_rebajado" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Precio rebajado</label>
+                        <input type="text" name="precio_rebajado" id="precio_rebajado" placeholder="99.99" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                    </div>
+                    <div>
                         <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Stock</label>
                         <input type="text" name="stock" id="stock" placeholder="99.99" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                     </div>
                     <div>
-                        <label for="visible" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">visible</label>
-                        <input type="text" name="visible" id="visible" placeholder="yes | no" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
-                    </div>
-                    <div>
                         <label for="categoria_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Categoria id</label>
                         <input type="text" name="categoria_id" id="categoria_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                    </div>
+                    <div>
+                        <label for="visible" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Visibilidad</label>
+                        <input type="text" name="visible" id="visible" placeholder="yes|no" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                     </div>
                     <input id="ocultoModificar" type="hidden" name="id">
                     <button data-modal-toggle="modificar" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
@@ -120,6 +142,8 @@
         </div>
     </div>
 </div>
+
+
 <!-- Esto es para el insertar una categoria -->
 <div id="insertar_categoria" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
     <div class="relative p-4 w-full max-w-md h-full md:h-auto">
@@ -146,6 +170,7 @@
         </div>
     </div>
 </div>
+
 <!-- Esto es para el borrar una categoria -->
 <div id="borrar" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
     <div class="relative p-4 w-full max-w-md h-full md:h-auto">
@@ -172,6 +197,7 @@
         </div>
     </div>
 </div>
+
 <!-- Esto es para modificar categoria -->
 <div id="modificar_categoria" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
     <div class="relative p-4 w-full max-w-md h-full md:h-auto">

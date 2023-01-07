@@ -43,8 +43,8 @@ $sent->execute([
     ':descripcion' => $descripcion ?: $origin['descripcion'],
     ':precio' => $precio ?: $origin['precio'],
     ':stock' => $stock ?: $origin['stock'],
-    ':categoria_id' => $categoria_id ?: $origin['categoria_id'],
-    ':visible' => $visible ?: $origin['visible']
+    ':visible' => $visible ?: $origin['visible'],
+    ':categoria_id' => $categoria_id ?: $origin['categoria_id']
 ]);
 
 //Establecer un mensaje de éxito y vuelve a la página de administración
