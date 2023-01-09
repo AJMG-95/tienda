@@ -88,7 +88,7 @@
                         $articulo = $linea->getArticulo();
                         $codigo = $articulo->getCodigo();
                         $cantidad = $linea->getCantidad();
-                        $precio = $articulo->getDescuento() != 0 ? $articulo->getPrecio() - $articulo->getDescuento() : $articulo->getPrecio();
+                        $precio = $articulo->getDescuento() > 0 ? $articulo->getPrecio() - $articulo->getDescuento() : $articulo->getPrecio();
                         $importe = $cantidad * $precio;
                         $total += $importe;
                         ?>

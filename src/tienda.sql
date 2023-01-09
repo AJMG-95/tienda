@@ -7,7 +7,7 @@ CREATE TABLE articulos (
     codigo      varchar(13)   NOT NULL UNIQUE,
     descripcion varchar(255)  NOT NULL,
     precio      numeric(7, 2) NOT NULL,
-    descuento   numeric(3)          DEFAULT 0,
+    descuento   numeric(3)    DEFAULT 0,
     cantidad_descuento  numeric(7, 2) DEFAULT 0,
     stock       int           NOT NULL,
     visible     bool          NOT NULL,
