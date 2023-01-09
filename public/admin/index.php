@@ -19,6 +19,12 @@
             const ocultoModificar = document.getElementById('ocultoModificar');
             ocultoModificar.setAttribute('value', id);
         }
+
+        function cambiarModificar_descuento(el, id) {
+            el.preventDefault();
+            const ocultoModificar_descuento = document.getElementById('ocultoModificar_descuento');
+            ocultoModificar_descuento.setAttribute('value', id);
+        }
     </script>
     <title>Listado de artículos</title>
 </head>
@@ -64,8 +70,8 @@
                     <th scope="col" class="py-3 px-6">Código</th>
                     <th scope="col" class="py-3 px-6">Descripción</th>
                     <th scope="col" class="py-3 px-6">Precio</th>
-                    <th scope="col" class="py-3 px-6">Descuento</th>
-                    <th scope="col" class="py-3 px-6">Nuevo Precio </th>
+                    <th scope="col" class="py-3 px-6">Descuento %</th>
+                    <th scope="col" class="py-3 px-6">Cantidad descontada </th>
                     <th scope="col" class="py-3 px-6">Stock</th>
                     <th scope="col" class="py-3 px-6">Categoria</th>
                     <th scope="col" class="py-3 px-6">Categoria id</th>
@@ -97,11 +103,11 @@
                                     <button type="submit" onclick="cambiar(event, <?= $fila_id ?>)" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" data-modal-toggle="popup-modal">Borrar</button>
                                 </form>
                                 <form action="/admin/rebajas.php" method="POST" class="inline">
-                                <input type="hidden" name="id" value="<?= $fila_id ?>">
-                                <button type="submit" onclick="cambiarModificar(event, <?= $fila_id ?>)" class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900" data-modal-toggle="rebajas">
-                                    Descuento
-                                </button>
-                            </form>
+                                    <input type="hidden" name="id" value="<?= $fila_id ?>">
+                                    <button type="submit" onclick="cambiarModificar_descuento(event, <?= $fila_id ?>)" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900" data-modal-toggle="rebajas">
+                                        Descuento
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     <?php endforeach ?>
@@ -111,3 +117,6 @@
     </div>
 
     <script src="/js/flowbite/flowbite.js"></script>
+</body>
+
+</html>

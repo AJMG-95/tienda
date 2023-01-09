@@ -55,10 +55,10 @@
                         <input type="number"  step="0.01" name="precio" id="precio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                     </div>
                     <div class="mb-6">
-                        <label for="precio_rebajado" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                            Precio rebajado
+                        <label for="descuento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            % descuento
                         </label>
-                        <input type="text" name="precio_rebajado" id="precio_rebajado" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <input type="text" name="descuento" id="descuento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </div>
                     <div class="mb-6">
                         <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -115,8 +115,8 @@
                         <input type="text" name="precio" id="precio" placeholder="99.99" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                     </div>
                     <div>
-                        <label for="precio_rebajado" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Precio rebajado</label>
-                        <input type="text" name="precio_rebajado" id="precio_rebajado" placeholder="99.99" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                        <label for="descuento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">% descuento</label>
+                        <input type="text" name="descuento" id="descuento" placeholder="99.99" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                     </div>
                     <div>
                         <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Stock</label>
@@ -213,7 +213,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
                 <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">ESTÁS MODIFICANDO UNA CATEGORIA</h3>
-                <form class="space-y-6" action="/admin/editar.php" method="POST">
+                <form class="space-y-6" action="/admin/modificar_categoria.php" method="POST">
                     <div>
                         <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Categoria</label>
                         <input type="text" name="categoria" id="categoria" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
@@ -251,7 +251,7 @@
                         <label for="rebaja" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">% Rebajado</label>
                         <input type="number" name="rebaja" id="rebaja" placeholder="99.99" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                     </div>
-                    <input id="ocultoModigicar" type="hidden" name="id">
+                    <input id="ocultoModificar_descuento" type="hidden" name="id">
                     <button data-modal-toggle="rebajas" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                         Sí, seguro
                     </button>

@@ -6,8 +6,7 @@ require '../../src/auxiliar.php';
 $id = obtener_post('id', FILTER_VALIDATE_INT);
 
 if (empty($id) || $id === false) {
-    header('Location: volver_categorias.php');
-    exit;
+    return volver_categorias();
 }
 
 $pdo = conectar();
