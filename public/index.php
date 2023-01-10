@@ -26,11 +26,11 @@
     $where = [];
     $execute = [];
     if (isset($precio_min) && $precio_min != '') {
-        $where[] = 'precio >= :precio_min';
+        $where[] = '(precio - cantidad_descuento) >= :precio_min';
         $execute[':precio_min'] = $precio_min;
     }
     if (isset($precio_max) && $precio_max != '') {
-        $where[] = 'precio <= :precio_max ';
+        $where[] = '(precio - cantidad_descuento) <= :precio_max ';
         $execute[':precio_max'] = $precio_max;
     }
     if (isset($nombre) && $nombre != '') {
@@ -44,7 +44,11 @@
     $where = !empty($where) ?  'WHERE ' . implode(' AND ', $where) . ' AND visible = true' : 'WHERE visible = true';
 
     try {
-        $sent = $pdo->prepare("SELECT p.*, c.categoria FROM articulos p JOIN categorias c ON c.id = p.categoria_id $where ORDER BY codigo");
+        $sent = $pdo->prepare("SELECT p.*, c.categoria
+                                FROM articulos p
+                                JOIN categorias c ON c.id = p.categoria_id
+                                $where
+                                ORDER BY codigo");
         $sent->execute($execute);
     } catch (PDOException $e) {
         var_dump($e->getMessage());

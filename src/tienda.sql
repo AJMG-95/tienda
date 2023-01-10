@@ -7,14 +7,13 @@ CREATE TABLE articulos (
     codigo      varchar(13)   NOT NULL UNIQUE,
     descripcion varchar(255)  NOT NULL,
     precio      numeric(7, 2) NOT NULL,
-    descuento   numeric(3)    DEFAULT 0,
+    descuento   numeric(3)          DEFAULT 0,
     cantidad_descuento  numeric(7, 2) DEFAULT 0,
     stock       int           NOT NULL,
     visible     bool          NOT NULL,
     categoria_id bigint NOT NULL REFERENCES categorias(id)
     CHECK (descuento >= 0 AND descuento <= 100)
 );
-
 
 DROP TABLE IF EXISTS categorias CASCADE;
 
@@ -28,6 +27,10 @@ DROP TABLE IF EXISTS usuarios CASCADE;
 CREATE TABLE usuarios (
     id       bigserial    PRIMARY KEY,
     usuario  varchar(255) NOT NULL UNIQUE,
+    nombre   varchar(255),
+    apellidos  varchar(255),
+    email       varchar(255) UNIQUE,
+    telefono    varchar(9) UNIQUE,
     password varchar(255) NOT NULL,
     validado bool         NOT NULL
 );
@@ -51,10 +54,10 @@ CREATE TABLE articulos_facturas (
 
 -- Carga inicial de datos de prueba:
 
-INSERT INTO articulos (codigo, descripcion, precio, stock, visible, categoria_id)
+INSERT INTO articulos (codigo, descripcion, precio, stock,visible,categoria_id)
     VALUES ('18273892389', 'Yogur piña', 200.50, 4, false, 2),
-           ('83745828273', 'Tigretón', 50.1, 2, true, 2),
-           ('51736128495', 'Disco duro SSD 500 GB', 150.30,  0, true, 1),
+           ('83745828273', 'Tigretón', 50.10, 2, true, 2),
+           ('51736128495', 'Disco duro SSD 500 GB', 150.30, 0, true, 1),
            ('83746828273', 'Tigretón', 50.10, 3, true, 2),
            ('51786128435', 'Disco duro SSD 500 GB', 150.30, 5, true, 1),
            ('83745228673', 'Tigretón', 50.10, 8, true, 2),
