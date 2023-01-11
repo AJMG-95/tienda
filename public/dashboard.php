@@ -1,5 +1,5 @@
 <?php
-session_start();    
+session_start();
 
 use App\Tablas\Factura;
 use App\Tablas\Usuario;
@@ -21,7 +21,7 @@ use App\Tablas\Usuario;
     if (!\App\Tablas\Usuario::esta_logueado()) {
         return redirigir_login();
     }
-    
+
     $facturas = Factura::todosConTotal(
         ['usuario_id = :usuario_id'],
         [':usuario_id' => Usuario::logueado()->id]
