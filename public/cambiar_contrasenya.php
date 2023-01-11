@@ -24,13 +24,50 @@ $origin = $sent->fetchColumn();
 
 
 //Actualiza la contraseña del usuario
-if(password_verify($password, $origin)) {
-    if($newpassword == $passwordrepeat) {
-        $usuario->cambiar_contrasenya($usuario, $newpassword, $pdo);
-        $_SESSION['exito'] = 'La contraseña se ha modificado correctamente.';
+$error = ['password' => [], 'new_password' => []];
 
-        return volver_a("/perfil.php");
+if (!empty($password)){
+    if (password_verify($password, $origin)) {
+        $error['password'][] = 'La contraseña no coincide con la actual';
     }
 }
+
+if (!empty($newpassword)) {
+    if (preg_match('/[a-z]/', $newpassword) !== 1) {
+        $error['new_password'][] = 'Debe contener al menos una minúscula.';
+    }
+    if (preg_match('/[A-Z]/', $newpassword) !== 1) {
+        $error['new_password'][] = 'Debe contener al menos una mayúscula.';
+    }
+    if (preg_match('/[[:digit:]]/', $newpassword) !== 1) {
+        $error['new_password'][] = 'Debe contener al menos un dígito.';
+    }
+    if (preg_match('/[[:punct:]]/', $newpassword) !== 1) {
+        $error['new_password'][] = 'Debe contener al menos un signo de puntuación.';
+    }
+    if (mb_strlen($newpassword) < 8) {
+        $error['new_password'][] = 'Debe tener al menos 8 caracteres.';
+    }
+    if($newpassword != $passwordrepeat) {
+        $error['new_password'][] = 'La contraseña no coincide';
+    }
+}
+
+$vacio = true;
+
+foreach($error as $err){
+    if(!empty($err)){
+        $vacio = false;
+        break;
+    }
+}
+
+if($vacio) {
+    $usuario->cambiar_contrasenya($usuario, $newpassword, $pdo);
+    $_SESSION['exito'] = 'La contraseña se ha modificado correctamente.';
+
+    return volver_a("/perfil.php");
+}
+
 
 //Establecer un mensaje de éxito y vuelve a la página de perfil
