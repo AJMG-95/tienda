@@ -13,7 +13,6 @@ class Articulo extends Modelo
     private $descripcion;
     private $precio;
     private $descuento;
-    private $cantidad_descuento;
     private $stock;
     private $categoria_id;
     private $visivilidad;
@@ -25,7 +24,6 @@ class Articulo extends Modelo
         $this->descripcion = $campos['descripcion'];
         $this->precio = $campos['precio'];
         $this->descuento = $campos['descuento'];
-        $this->cantidad_descuento = $campos['cantidad_descuento'];
         $this->stock = $campos['stock'];
         $this->categoria_id = $campos['categoria_id'];
         $this->visivilidad = $campos['visivilidad'];
@@ -53,7 +51,7 @@ class Articulo extends Modelo
 
     public function getDescuento()
     {
-        return $this->cantidad_descuento;
+        return $this->descuento;
     }
 
     public function getStock()

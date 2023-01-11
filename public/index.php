@@ -20,7 +20,9 @@
     $nombre = obtener_get('nombre');
     $categoria = obtener_get('categoria');
     $visible = obtener_get('visible');
+    $precio = obtener_post('precio');
     $descuento = $precio - ((obtener_get('descuento')*$precio)/100);
+
     $pdo = conectar();
 
     $where = [];
