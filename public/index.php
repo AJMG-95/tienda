@@ -20,22 +20,18 @@
     $nombre = obtener_get('nombre');
     $categoria = obtener_get('categoria');
     $visible = obtener_get('visible');
-    $precio = obtener_post('precio');
-    $descuento = $precio - ((obtener_get('descuento')*$precio)/100);
 
     $pdo = conectar();
 
     $where = [];
     $execute = [];
     if (isset($precio_min) && $precio_min != '') {
-        $where[] = '(precio - :descuento) >= :precio_min';
+        $where[] = '(precio - (precio * descuento / 100)) >= :precio_min';
         $execute[':precio_min'] = $precio_min;
-        $execute[':descuento'] = $descuento;
     }
     if (isset($precio_max) && $precio_max != '') {
-        $where[] = '(precio - :descuento) <= :precio_max ';
+        $where[] = '(precio - (precio * descuento / 100)) <= :precio_max ';
         $execute[':precio_max'] = $precio_max;
-        $execute[':descuento'] = $descuento;
     }
     if (isset($nombre) && $nombre != '') {
         $where[] = 'lower(descripcion) LIKE lower(:nombre)';

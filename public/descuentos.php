@@ -30,11 +30,11 @@
     $where = [];
     $execute = [];
     if (isset($precio_min) && $precio_min != '') {
-        $where[] = 'precio >= :precio_min';
+        $where[] = '(precio - (precio * descuento / 100)) >= :precio_min';
         $execute[':precio_min'] = $precio_min;
     }
     if (isset($precio_max) && $precio_max != '') {
-        $where[] = 'precio <= :precio_max ';
+        $where[] = '(precio - (precio * descuento / 100)) <= :precio_max ';
         $execute[':precio_max'] = $precio_max;
     }
     if (isset($nombre) && $nombre != '') {
