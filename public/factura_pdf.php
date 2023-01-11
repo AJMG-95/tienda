@@ -35,7 +35,7 @@ foreach ($factura->getLineas($pdo) as $linea) {
     $codigo = $articulo->getCodigo();
     $descripcion = $articulo->getDescripcion();
     $cantidad = $linea->getCantidad();
-    $precio = $articulo->getDescuento() != 0 ? $articulo->getPrecio() - $articulo->getDescuento() : $articulo->getPrecio();
+    $precio = $articulo->getDescuento() != 0 ? $articulo->getPrecio() - ($articulo->getPrecio() * $articulo->getDescuento() / 100) : $articulo->getPrecio();
     $importe = $cantidad * $precio;
     $total += $importe;
     $precio = dinero($precio);
