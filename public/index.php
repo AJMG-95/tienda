@@ -98,9 +98,9 @@
                 <?php foreach ($sent as $fila) : ?>
                     <div class="p-6 max-w-xs min-w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                         <?php if (isset($fila['descuento']) && $fila['descuento'] != '' && $fila['descuento'] > 0) : ?>
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?= hh($fila['descripcion']) ?> - <span class="mb-3 font-normal text-red-700 dark:text-red-400 "> <del><?= hh($fila['precio']) ?> € </del></span></h5>
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?= hh($fila['descripcion']) ?> - <span class="mb-3 font-normal text-red-700 dark:text-red-400 "> <del><?= hh($fila['precio']) ?> € </del></span></h5>
 
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> Precio Rebajado : <?= hh($fila['precio']) - hh(($fila['descuento'] * $fila['precio'])/100) ?> €</h5>
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> Precio Rebajado : <?= hh($fila['precio']) - hh(($fila['precio'] * $fila['descuento']) / 100) ?> €</h5>
                         <?php else : ?>
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?= hh($fila['descripcion']) ?> - <?= hh($fila['precio']) ?> € </h5>
                         <?php endif ?>
