@@ -81,7 +81,7 @@ class Usuario extends Modelo
         $sent = $pdo->prepare("UPDATE usuarios
                                 SET password = :password
                                 WHERE id = :id");
-        $result = $sent->execute([
+        $sent->execute([
             ':id' => $user->obtenerId(),
             ':password' => password_hash($password, PASSWORD_DEFAULT)
         ]);
