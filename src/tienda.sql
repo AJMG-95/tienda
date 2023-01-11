@@ -3,36 +3,35 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 DROP TABLE IF EXISTS articulos CASCADE;
 
 CREATE TABLE articulos (
-    id          bigserial     PRIMARY KEY,
-    codigo      varchar(13)   NOT NULL UNIQUE,
-    descripcion varchar(255)  NOT NULL,
-    precio      numeric(7, 2) NOT NULL,
-    descuento   numeric(3)          DEFAULT 0,
-    cantidad_descuento  numeric(7, 2) DEFAULT 0,
-    stock       int           NOT NULL,
-    visible     bool          NOT NULL,
-    categoria_id bigint NOT NULL REFERENCES categorias(id)
+    id                  bigserial      PRIMARY KEY,
+    codigo              varchar(13)    NOT NULL UNIQUE,
+    descripcion         varchar(255)   NOT NULL,
+    precio              numeric(7, 2)  NOT NULL,
+    descuento           numeric(3)     DEFAULT 0,
+    stock               int            NOT NULL,
+    visible             boolean        NOT NULL,
+    categoria_id        bigint NOT NULL REFERENCES categorias(id)
     CHECK (descuento >= 0 AND descuento <= 100)
 );
 
 DROP TABLE IF EXISTS categorias CASCADE;
 
 CREATE TABLE categorias (
-  id bigserial  PRIMARY KEY,
-  categoria varchar(255) NOT NULL
+  id          bigserial       PRIMARY KEY,
+  categoria   varchar(255)    NOT NULL
 );
 
 DROP TABLE IF EXISTS usuarios CASCADE;
 
 CREATE TABLE usuarios (
-    id       bigserial    PRIMARY KEY,
-    usuario  varchar(255) NOT NULL UNIQUE,
-    nombre   varchar(255),
-    apellidos  varchar(255),
+    id          bigserial    PRIMARY KEY,
+    usuario     varchar(255) NOT NULL UNIQUE,
+    nombre      varchar(255),
+    apellidos   varchar(255),
     email       varchar(255) UNIQUE,
-    telefono    varchar(9) UNIQUE,
-    password varchar(255) NOT NULL,
-    validado bool         NOT NULL
+    telefono    varchar(9)   UNIQUE,
+    password    varchar(255) NOT NULL,
+    validado    boolean      NOT NULL
 );
 
 DROP TABLE IF EXISTS facturas CASCADE;

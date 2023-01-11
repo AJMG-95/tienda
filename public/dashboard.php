@@ -1,9 +1,9 @@
 <?php
+session_start();    
 
 use App\Tablas\Factura;
 use App\Tablas\Usuario;
-
- session_start() ?>
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -21,13 +21,12 @@ use App\Tablas\Usuario;
     if (!\App\Tablas\Usuario::esta_logueado()) {
         return redirigir_login();
     }
-
+    
     $facturas = Factura::todosConTotal(
         ['usuario_id = :usuario_id'],
         [':usuario_id' => Usuario::logueado()->id]
     );
     ?>
-
     <div class="container mx-auto">
         <?php require_once '../src/_menu.php' ?>
         <div class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">

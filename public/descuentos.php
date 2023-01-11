@@ -45,9 +45,9 @@
         $where[] = 'lower(categoria) LIKE lower(:categoria)';
         $execute[':categoria'] = "%$categoria%";
     }
-    $where = !empty($where) ?  'WHERE ' . implode(' AND ', $where) . ' AND visible = true' : 'WHERE visible = true' . ' AND descuento != 0';
+    $where = !empty($where) ?  'WHERE ' . implode(' AND ', $where) . ' AND visible = true' : 'WHERE visible = true';
 
-    $sent = $pdo->prepare("SELECT p.*, c.categoria FROM articulos p JOIN categorias c ON c.id = p.categoria_id $where ORDER BY codigo");
+    $sent = $pdo->prepare("SELECT p.*, c.categoria FROM articulos p JOIN categorias c ON c.id = p.categoria_id $where AND descuento != 0 ORDER BY codigo");
     $sent->execute($execute);
 
     ?>

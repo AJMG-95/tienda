@@ -33,7 +33,7 @@ $origin = $sent->fetch(PDO::FETCH_ASSOC);
 
 // Calculate the cantidad_descuento based on the descuento and precio
 
-$cantidad_descuento = $precio ?  $precio * ($descuento / 100) : $origin['precio'] * ($descuento / 100);
+/* $cantidad_descuento = $precio ?  $precio * ($descuento / 100) : $origin['precio'] * ($descuento / 100); */
 
 //Actualizar el registro con los datos POST o los valores actuales
 $sent = $pdo->prepare("UPDATE articulos
@@ -41,7 +41,6 @@ $sent = $pdo->prepare("UPDATE articulos
                             descripcion = :descripcion,
                             precio = :precio,
                             descuento = :descuento,
-                            cantidad_descuento = :cantidad_descuento,
                             stock = :stock,
                             visible = :visible,
                             categoria_id = :categoria_id
@@ -52,7 +51,6 @@ $sent->execute([
     ':descripcion' => $descripcion ?: $origin['descripcion'],
     ':precio' => $precio ?: $origin['precio'],
     ':descuento' => $descuento ?: $origin['descuento'],
-    ':cantidad_descuento' => $cantidad_descuento ?: $origin['cantidad_descuento'],
     ':stock' => $stock ?: $origin['stock'],
     ':visible' => $visible ?: $origin['visible'],
     ':categoria_id' => $categoria_id ?: $origin['categoria_id']

@@ -9,7 +9,7 @@ class Modelo
     protected static string $tabla;
 
     /**
-     * Recive un id y una conexion a la base de datos opcional,
+     * Recibe un id y una conexion a la base de datos opcional,
      * si no recibe la conexion a la base de datos la crea.
      * Toma una variable estatica $tabla y ejecuta una consulta sobre la tabla
      * usando como condición WHERE el id proporcionado.

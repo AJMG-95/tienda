@@ -20,18 +20,20 @@
     $nombre = obtener_get('nombre');
     $categoria = obtener_get('categoria');
     $visible = obtener_get('visible');
-
+    $descuento = $precio - ((obtener_get('descuento')*$precio)/100);
     $pdo = conectar();
 
     $where = [];
     $execute = [];
     if (isset($precio_min) && $precio_min != '') {
-        $where[] = '(precio - cantidad_descuento) >= :precio_min';
+        $where[] = '(precio - :descuento) >= :precio_min';
         $execute[':precio_min'] = $precio_min;
+        $execute[':descuento'] = $descuento;
     }
     if (isset($precio_max) && $precio_max != '') {
-        $where[] = '(precio - cantidad_descuento) <= :precio_max ';
+        $where[] = '(precio - :descuento) <= :precio_max ';
         $execute[':precio_max'] = $precio_max;
+        $execute[':descuento'] = $descuento;
     }
     if (isset($nombre) && $nombre != '') {
         $where[] = 'lower(descripcion) LIKE lower(:nombre)';
@@ -98,9 +100,9 @@
                 <?php foreach ($sent as $fila) : ?>
                     <div class="p-6 max-w-xs min-w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                         <?php if (isset($fila['descuento']) && $fila['descuento'] != '' && $fila['descuento'] > 0) : ?>
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?= hh($fila['descripcion']) ?> - <span class="mb-3 font-normal text-red-700 dark:text-red-400"> <?= hh($fila['precio']) ?> € </span></h5>
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?= hh($fila['descripcion']) ?> - <span class="mb-3 font-normal text-red-700 dark:text-red-400 "> <del><?= hh($fila['precio']) ?> € </del></span></h5>
 
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> Precio Rebajado : <?= hh($fila['precio']) - hh($fila['cantidad_descuento']) ?> €</h5>
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> Precio Rebajado : <?= hh($fila['precio']) - hh(($fila['descuento'] * $fila['precio'])/100) ?> €</h5>
                         <?php else : ?>
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?= hh($fila['descripcion']) ?> - <?= hh($fila['precio']) ?> € </h5>
                         <?php endif ?>
