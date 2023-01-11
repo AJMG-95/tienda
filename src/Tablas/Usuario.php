@@ -76,12 +76,14 @@ class Usuario extends Modelo
         return $this->id;
     }
 
-    public function cambiar_contraseña($user, $password, ?PDO $pdo = null)
+    public function cambiar_contrasenya($user, $password, ?PDO $pdo = null)
     {
-        $sent = $pdo->prepare("UPDATE usuarios SET password = ':password' WHERE id = :id");
+        $sent = $pdo->prepare("UPDATE usuarios
+                                SET password = ':password'
+                                WHERE id = :id");
         $sent->execute([
             ':password' => password_hash($password, PASSWORD_DEFAULT),
-            ':id' => $user::obtenerId(),
+            ':id' => $user->id,
         ]);
     }
 }
